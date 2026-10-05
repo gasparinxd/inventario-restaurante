@@ -1,0 +1,30 @@
+name: devcontainer
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Construir devcontainer y levantar el stack dentro
+        uses: devcontainers/ci@v0.3
+        with:
+          push: never
+          runCmd: |
+            set -e
+            java -version
+            mvn -v
+            node -v
+            docker --version
+            docker compose version
+            docker compose up -d --build
+            for i in $(seq 1 60); do curl -fs http://localhost:3000/api/productos && break; sleep 3; done
+            curl -fs http://localhost:3000 | grep "<title>Inventario Restaurante</title>"
+            docker compose ps
+            docker compose down -v
