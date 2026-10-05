@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      - name: Construir devcontainer y levantar el stack dentro
+      - name: Construir devcontainer y comprobar que levanta el stack solo
         uses: devcontainers/ci@v0.3
         with:
           push: never
@@ -23,8 +23,8 @@ jobs:
             node -v
             docker --version
             docker compose version
-            docker compose up -d --build
+            # postStartCommand ya debe haber levantado los servicios
             for i in $(seq 1 60); do curl -fs http://localhost:3000/api/productos && break; sleep 3; done
+            curl -fs http://localhost:3000/api/productos
             curl -fs http://localhost:3000 | grep "<title>Inventario Restaurante</title>"
             docker compose ps
-            docker compose down -v

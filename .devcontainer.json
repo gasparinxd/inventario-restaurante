@@ -12,7 +12,13 @@
     "ghcr.io/devcontainers/features/docker-in-docker:2": {}
   },
   "forwardPorts": [5432, 8080, 3000],
+  "portsAttributes": {
+    "3000": { "label": "Frontend", "onAutoForward": "openBrowser" },
+    "8080": { "label": "Backend", "onAutoForward": "silent" },
+    "5432": { "label": "PostgreSQL", "onAutoForward": "silent" }
+  },
   "postCreateCommand": "cd frontend && npm install",
+  "postStartCommand": "bash -c 'until docker info >/dev/null 2>&1; do sleep 1; done; docker compose up -d --build'",
   "customizations": {
     "vscode": {
       "extensions": [
