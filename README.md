@@ -1,5 +1,7 @@
 # Inventario Restaurante
 
+[![docker-compose](https://github.com/gasparinxd/inventario-restaurante/actions/workflows/docker-compose.yml/badge.svg)](https://github.com/gasparinxd/inventario-restaurante/actions/workflows/docker-compose.yml)
+
 Aplicación para la gestión de inventario de un restaurante.
 
 - **backend/**: API REST con Spring Boot 4 (Java 21) y PostgreSQL.
@@ -28,6 +30,16 @@ docker compose up --build
 Los valores de BD y puertos se leen del archivo `.env` (no versionado). Si no existe, se usan los valores por defecto: BD/usuario/contraseña `inventario`, puertos 5432, 8080 y 3000.
 
 Para detener: `docker compose down` (añade `-v` para borrar los datos de la BD).
+
+## GitHub Codespaces
+
+1. En GitHub: **Code → Codespaces → Create codespace on main**.
+2. Cuando termine de abrirse, en la terminal: `docker compose up --build`.
+3. Abre la pestaña **Ports** y entra al puerto **3000** (frontend).
+
+## Integración continua
+
+Cada push a `main` ejecuta el workflow `.github/workflows/docker-compose.yml`, que levanta los tres servicios con `docker compose` y comprueba el backend, la API y el frontend.
 
 ## Desarrollo local
 
