@@ -34,8 +34,10 @@ Para detener: `docker compose down` (añade `-v` para borrar los datos de la BD)
 ## GitHub Codespaces
 
 1. En GitHub: **Code → Codespaces → Create codespace on main**.
-2. Cuando termine de abrirse, en la terminal: `docker compose up --build`.
-3. Abre la pestaña **Ports** y entra al puerto **3000** (frontend).
+2. Al arrancar, el Codespace ejecuta `docker compose up -d --build` automáticamente (tarda 1–3 minutos la primera vez).
+3. Abre la pestaña **Ports** y entra al puerto **3000 (Frontend)**. Si aparece *HTTP 401*, cambia la visibilidad del puerto a **Public**.
+
+Si un Codespace se creó antes de un cambio en `.devcontainer.json`, usa **Codespaces: Rebuild Container** desde la paleta de comandos.
 
 ## Integración continua
 
